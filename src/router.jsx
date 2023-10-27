@@ -5,6 +5,7 @@ import DeviceCheck from "./DeviceCheck/DeviceCheck";
 import Read from "./pages/Read";
 import PrivateRoute from "./Auth/PrivateRoute";
 import Wishlist from "./pages/Wishlist";
+import AdminRoute from "./Auth/AdminRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,9 @@ const router = createBrowserRouter([
         path: "/read",
         element: (
           <PrivateRoute>
-            <Read></Read>
+            <AdminRoute>
+              <Read></Read>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
@@ -31,7 +34,9 @@ const router = createBrowserRouter([
         path: "/wishlist",
         element: (
           <PrivateRoute>
-            <Wishlist></Wishlist>
+            <AdminRoute>
+              <Wishlist></Wishlist>
+            </AdminRoute>
           </PrivateRoute>
         ),
       },
