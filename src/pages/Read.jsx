@@ -33,6 +33,7 @@ const Read = () => {
       .then((d) => {
         if (d.data.insertedId) {
           toast.success(`Welcome for completing ${bookName}`);
+          setReadList([book, ...readList]);
         }
       });
   };

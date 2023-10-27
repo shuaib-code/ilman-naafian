@@ -72,6 +72,12 @@ const Nav = () => {
             </div>
             <div className="flex justify-center items-center mt-4">
               <button
+                disabled={
+                  user?.email === "shuaib.cyclist@gmail.com" ||
+                  user?.email === "tasinoutlook@gmail.com"
+                    ? false
+                    : true
+                }
                 onClick={() => setReadForm(1)}
                 className="text-lg rounded-3xl text-black font-bold px-6 py-2 bg-green border-2 active:text-white border-slate-800"
               >
@@ -130,6 +136,7 @@ const Nav = () => {
       .then((d) => {
         if (d.data.insertedId) {
           toast.success(`${bookName} is added to your collection.`);
+          window.location.reload();
         }
       });
   };

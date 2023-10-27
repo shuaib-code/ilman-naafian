@@ -32,6 +32,7 @@ const Wishlist = () => {
       .then((d) => {
         if (d.data.insertedId) {
           toast.success(`I hope you can buy ${bookName} one day.`);
+          setWishlist([book, ...wishlist]);
         }
       });
   };
