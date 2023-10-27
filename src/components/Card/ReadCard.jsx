@@ -1,7 +1,8 @@
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { FaBackspace } from "react-icons/fa";
-import { MdDelete, MdNote } from "react-icons/md";
+import { MdDelete, MdEditSquare, MdNote } from "react-icons/md";
+import { IoMdCloseCircle } from "react-icons/io";
 import axios from "axios";
 import toast from "react-hot-toast";
 
@@ -146,13 +147,13 @@ const ReadCard = ({ book, id, handleReadList }) => {
         }  p-2 bg-black/20 backdrop-blur-lg mt-4 rounded shadow-2xl`}
       >
         <div className="p-3 rounded-md bg-gray">
-          <div className="flex justify-between items-center my-1 mb-3">
+          <div className="flex justify-between items-center my-1 mb-3 border-b-2 pb-2 rounded-b border-slate-400">
             <div className="flex justify-center items-center">
               <img
                 src={user?.photoURL}
                 className="w-7 rounded-full mx-1 mr-3 border-2 border-green"
               />
-              <h1 className="text-lg font-semibold">{bookName}</h1>
+              <h1 className="font-medium">{bookName}</h1>
             </div>
             <div>
               <button
@@ -162,15 +163,15 @@ const ReadCard = ({ book, id, handleReadList }) => {
                 }}
                 className={`${
                   i ? "text-green bg-green" : "text-violet-900 bg-violet-900"
-                } bg-opacity-10 text-lg rounded-sm px-3 font-semibold mr-1`}
+                } bg-opacity-10 text-xl rounded-sm p-1 font-semibold mr-1`}
               >
-                Edit
+                <MdEditSquare></MdEditSquare>
               </button>
               <button
                 onClick={() => setNote(0)}
-                className={`text-red-700 bg-red-700 bg-opacity-10 text-lg rounded-sm px-3 font-semibold mr-1`}
+                className={`text-red-700 bg-red-700 bg-opacity-10 text-xl rounded-sm p-1 font-semibold mr-1`}
               >
-                Close
+                <IoMdCloseCircle></IoMdCloseCircle>
               </button>
             </div>
           </div>
