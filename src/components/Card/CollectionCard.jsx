@@ -65,7 +65,7 @@ const CollectionCard = ({ book, id, updateUI }) => {
       ></EditCollect>
       <div
         data-aos={id % 2 === 0 ? "fade-right" : "fade-left"}
-        data-aos-duration={id % 2 === 0 ? "1000" : "2000"}
+        data-aos-duration={id % 2 === 0 ? "600" : "800"}
         className="flex relative items-center justify-start bg-black/5 backdrop-blur-sm rounded-md shadow-md"
       >
         <div>

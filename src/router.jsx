@@ -6,10 +6,12 @@ import Read from "./pages/Read";
 import PrivateRoute from "./Auth/PrivateRoute";
 import Wishlist from "./pages/Wishlist";
 import AdminRoute from "./Auth/AdminRoute";
+import Error from "./components/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
+    errorElement: <Error></Error>,
     element: (
       <DeviceCheck>
         <Root></Root>
