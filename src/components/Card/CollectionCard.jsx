@@ -4,6 +4,10 @@ import toast from "react-hot-toast";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { MdDelete, MdEditDocument } from "react-icons/md";
 import axiosClient from "../../axios";
+import AOS from "aos";
+import "aos/dist/aos.css";
+
+AOS.init();
 
 const CollectionCard = ({ book, id, updateUI }) => {
   const { user } = useContext(AuthContext);
@@ -59,7 +63,11 @@ const CollectionCard = ({ book, id, updateUI }) => {
         show={showEditCollectForm}
         id={id}
       ></EditCollect>
-      <div className="flex relative items-center justify-start bg-black/5 backdrop-blur-sm rounded-md shadow-md">
+      <div
+        data-aos={id % 2 === 0 ? "fade-right" : "fade-left"}
+        data-aos-duration={id % 2 === 0 ? "1000" : "2000"}
+        className="flex relative items-center justify-start bg-black/5 backdrop-blur-sm rounded-md shadow-md"
+      >
         <div>
           <img src={url} className="w-20 rounded-l-md" />
         </div>
