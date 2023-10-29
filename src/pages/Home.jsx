@@ -55,8 +55,10 @@ const Home = () => {
                 1. Loading effect before data showing
               </p>
               <p className="text-sm font-medium">2. Animation on home page</p>
+              <p className="text-sm font-medium">3. Error component added</p>
+              <p className="text-sm font-medium">4. Overlay-x hidden</p>
               <p className="text-xs font-slab mt-3 font-semibold text-right">
-                Data: 7:50 PM Sunday, October 29, 2023
+                Data: 2:30 AM Monday, October 30, 2023
               </p>
             </div>
           </div>
