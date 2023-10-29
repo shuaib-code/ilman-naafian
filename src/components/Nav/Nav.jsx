@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider";
 import toast from "react-hot-toast";
-import axios from "axios";
+import axiosClient from "../../axios";
 
 const Nav = () => {
   const [nav, setNav] = useState(false);
@@ -128,17 +128,12 @@ const Nav = () => {
     const url = form.url.value;
     const book = { bookName, author, pub, cat, islamic, url };
     console.log(book);
-    axios
-      .post(
-        "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/collect",
-        book
-      )
-      .then((d) => {
-        if (d.data.insertedId) {
-          toast.success(`${bookName} is added to your collection.`);
-          window.location.reload();
-        }
-      });
+    axiosClient.post("/collect", book).then((d) => {
+      if (d.data.insertedId) {
+        toast.success(`${bookName} is added to your collection.`);
+        window.location.reload();
+      }
+    });
   };
 
   const addReadForm = (

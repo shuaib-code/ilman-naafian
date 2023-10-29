@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import EditCollect from "./EditCollect";
-import axios from "axios";
 import toast from "react-hot-toast";
 import { AuthContext } from "../../Auth/AuthProvider";
 import { MdDelete, MdEditDocument } from "react-icons/md";
+import axiosClient from "../../axios";
 
 const CollectionCard = ({ book, id, updateUI }) => {
   const { user } = useContext(AuthContext);
@@ -20,10 +20,8 @@ const CollectionCard = ({ book, id, updateUI }) => {
   }, [user]);
   // console.log(admin);
   const handleDelete = () => {
-    axios
-      .delete(
-        `https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/collect/${_id}`
-      )
+    axiosClient
+      .delete(`/collect/${_id}`)
       .then((d) => d.data.deletedCount > 0) && updateUI(_id);
   };
   const deleteToast = () => {

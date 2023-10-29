@@ -1,18 +1,14 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaBackspace } from "react-icons/fa";
 import ReadCard from "../components/Card/ReadCard";
+import axiosClient from "../axios";
 
 const Read = () => {
   const [readForm, setReadForm] = useState(0);
   const [readList, setReadList] = useState(null);
   useEffect(() => {
-    axios
-      .get(
-        "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/readlist"
-      )
-      .then((d) => setReadList(d.data));
+    axiosClient.get("/readlist").then((d) => setReadList(d.data));
   }, []);
   const handelForm = (e) => {
     e.preventDefault();
@@ -25,17 +21,12 @@ const Read = () => {
     const islamic = form.islamic.value;
     const note = form.note.value;
     const book = { bookName, author, pub, cat, islamic, note };
-    axios
-      .post(
-        "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/readlist",
-        book
-      )
-      .then((d) => {
-        if (d.data.insertedId) {
-          toast.success(`Welcome for completing ${bookName}`);
-          setReadList([book, ...readList]);
-        }
-      });
+    axiosClient.post("/readlist", book).then((d) => {
+      if (d.data.insertedId) {
+        toast.success(`Welcome for completing ${bookName}`);
+        setReadList([book, ...readList]);
+      }
+    });
   };
   const handleReadList = (removeID) => {
     const remaining = readList?.filter((e) => e._id !== removeID);

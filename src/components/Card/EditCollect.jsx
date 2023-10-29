@@ -1,6 +1,6 @@
-import axios from "axios";
 import toast from "react-hot-toast";
 import { FaBackspace } from "react-icons/fa";
+import axiosClient from "../../axios";
 
 const EditCollect = ({ book, setShowEditCollectForm, show, id }) => {
   const { bookName, author, pub, cat, _id, url } = book;
@@ -14,16 +14,11 @@ const EditCollect = ({ book, setShowEditCollectForm, show, id }) => {
     const cat = form.cat.value;
     const url = form.url.value;
     const book = { bookName, author, pub, cat, url };
-    axios
-      .put(
-        `https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/collect/${_id}`,
-        book
-      )
-      .then((d) => {
-        d.data.modifiedCount > 0 &&
-          toast.success(`Modification of ${bookName} is successful.`);
-        !d.data.modifiedCount && toast.error("You did not modified anything.");
-      });
+    axiosClient.put(`/collect/${_id}`, book).then((d) => {
+      d.data.modifiedCount > 0 &&
+        toast.success(`Modification of ${bookName} is successful.`);
+      !d.data.modifiedCount && toast.error("You did not modified anything.");
+    });
   };
   const addReadForm = (
     <>

@@ -1,18 +1,14 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaBackspace } from "react-icons/fa";
 import WishCard from "../components/Card/WishCard";
+import axiosClient from "../axios";
 
 const Wishlist = () => {
   const [readForm, setReadForm] = useState(0);
   const [wishlist, setWishlist] = useState(null);
   useEffect(() => {
-    axios
-      .get(
-        "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/wishlist"
-      )
-      .then((d) => setWishlist(d.data));
+    axiosClient.get("/wishlist").then((d) => setWishlist(d.data));
   }, []);
   const handelForm = (e) => {
     e.preventDefault();
@@ -24,17 +20,12 @@ const Wishlist = () => {
     const cat = form.cat.value;
     const islamic = form.islamic.value;
     const book = { bookName, author, pub, cat, islamic };
-    axios
-      .post(
-        "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/wishlist",
-        book
-      )
-      .then((d) => {
-        if (d.data.insertedId) {
-          toast.success(`I hope you can buy ${bookName} one day.`);
-          setWishlist([book, ...wishlist]);
-        }
-      });
+    axiosClient.post("/wishlist", book).then((d) => {
+      if (d.data.insertedId) {
+        toast.success(`I hope you can buy ${bookName} one day.`);
+        setWishlist([book, ...wishlist]);
+      }
+    });
   };
   const updateUI = (removeID) => {
     const remaining = wishlist?.filter((e) => e._id !== removeID);

@@ -3,8 +3,8 @@ import { AuthContext } from "../../Auth/AuthProvider";
 import { FaBackspace } from "react-icons/fa";
 import { MdDelete, MdEditSquare, MdNote } from "react-icons/md";
 import { IoMdCloseCircle } from "react-icons/io";
-import axios from "axios";
 import toast from "react-hot-toast";
+import axiosClient from "../../axios";
 
 const ReadCard = ({ book, id, handleReadList }) => {
   const { bookName, author, pub, cat, islamic, note, _id } = book;
@@ -14,33 +14,24 @@ const ReadCard = ({ book, id, handleReadList }) => {
   const [showEditNote, setShowEditNOte] = useState(0);
   const i = parseInt(islamic);
   const handleDelete = () => {
-    axios
-      .delete(
-        `https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/note/${_id}`
-      )
-      .then((d) => {
-        if (d.data.deletedCount > 0) {
-          handleReadList(_id);
-        }
-      });
+    axiosClient.delete(`/note/${_id}`).then((d) => {
+      if (d.data.deletedCount > 0) {
+        handleReadList(_id);
+      }
+    });
   };
   const handelNote = (e) => {
     e.preventDefault();
     const newNote = e.target.note.value;
-    axios
-      .patch(
-        `https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/note/${_id}`,
-        { newNote }
-      )
-      .then((d) => {
-        if (d.data.modifiedCount > 0) {
-          toast.success(`Note of ${bookName} is updated.`);
-          setShowEditNOte(0);
-          setNoteText(newNote);
-        }
-        d.data.modifiedCount == 0 &&
-          toast.error("You did not edit your note yet.");
-      });
+    axiosClient.patch(`/note/${_id}`, { newNote }).then((d) => {
+      if (d.data.modifiedCount > 0) {
+        toast.success(`Note of ${bookName} is updated.`);
+        setShowEditNOte(0);
+        setNoteText(newNote);
+      }
+      d.data.modifiedCount == 0 &&
+        toast.error("You did not edit your note yet.");
+    });
   };
   const deleteToast = () => {
     toast((t) => (

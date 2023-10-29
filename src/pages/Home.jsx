@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useEffect, useState } from "react";
 import CollectionCard from "../components/Card/CollectionCard";
 import axiosClient from "../axios";
 import { useQuery } from "@tanstack/react-query";
@@ -12,10 +10,7 @@ const Home = () => {
   };
   // useEffect(() => {
   //   axiosClient.get("/collect").then((r) => setCollection(r.data));
-  //   // axios
-  //   //   .get(
-  //   //     "https://ilman-naafian-j1vgz4qm4-mohammad-shuaibs-projects.vercel.app/collect"
-  //   //   )
+  //   // axiosClient.get('/collect')
   //   //   .then((d) => setCollection(d.data));
   // }, []);
   const {
