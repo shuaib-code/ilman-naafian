@@ -50,8 +50,10 @@ const Home = () => {
     setShowSearchBox(0);
     const section = document.getElementById(id);
     if (section) {
+      section.classList.add("border-[3px]", "border-green");
       section.scrollIntoView({
         behavior: "smooth",
+        block: "center",
       });
     }
   };
