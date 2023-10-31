@@ -13,6 +13,7 @@ const Home = () => {
   const { user } = useContext(AuthContext);
   const [showSearchBox, setShowSearchBox] = useState(0);
   const [searchResult, setSearchResult] = useState(null);
+  const [removeClass, setRemoveClass] = useState(null);
   const updateUI = (removeID) => {
     // const remaining = collection?.filter((e) => e._id !== removeID);
     // setCollection(remaining);
@@ -51,10 +52,16 @@ const Home = () => {
     const section = document.getElementById(id);
     if (section) {
       section.classList.add("border-[3px]", "border-green");
+      if (removeClass) {
+        document
+          .getElementById(removeClass)
+          .classList.remove("border-[3px]", "border-green");
+      }
       section.scrollIntoView({
         behavior: "smooth",
         block: "center",
       });
+      setRemoveClass(id);
     }
   };
   const searchBox = (
@@ -63,7 +70,7 @@ const Home = () => {
         showSearchBox ? "block" : "hidden"
       } absolute w-full px-4 py-4 z-20 bg-black/20 backdrop-blur-sm h-screen rounded-sm`}
     >
-      <div className=" bg-gray bg-opacity-90 rounded-lg shadow-2xl pb-10">
+      <div className=" bg-gray bg-opacity-90  rounded-lg shadow-2xl pb-10">
         <div className="px-4 gap-8 py-4 flex justify-between items-center">
           <div>
             <MdSearch className="text-xl"></MdSearch>
@@ -154,7 +161,10 @@ const Home = () => {
           </div>
         ))}
       {searchBar}
-      <div className="mt-3 mx-3 space-y-2 bg-no-repeat bg-cover bg-fixed bg-[url('https://www.baagroups.com/images/bg-decor-3.png')]">
+      <div
+        id="collectionList"
+        className="mt-3 mx-3 space-y-2 bg-no-repeat bg-cover bg-fixed bg-[url('https://www.baagroups.com/images/bg-decor-3.png')]"
+      >
         {collection?.map((e, i) => (
           <CollectionCard
             key={e._id}
