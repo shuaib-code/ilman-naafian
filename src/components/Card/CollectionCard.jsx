@@ -67,6 +67,7 @@ const CollectionCard = ({ book, id, updateUI }) => {
         data-aos={id % 2 === 0 ? "zoom-in" : "zoom-in"}
         data-aos-duration={id % 2 === 0 ? "600" : "800"}
         className="flex relative items-center justify-start bg-black/5 backdrop-blur-sm rounded-md shadow-md"
+        id={_id}
       >
         <div>
           <img src={url} className="w-20 rounded-l-md" />

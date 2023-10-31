@@ -12,6 +12,7 @@ AOS.init();
 const Home = () => {
   const { user } = useContext(AuthContext);
   const [showSearchBox, setShowSearchBox] = useState(0);
+  const [searchResult, setSearchResult] = useState(null);
   const updateUI = (removeID) => {
     // const remaining = collection?.filter((e) => e._id !== removeID);
     // setCollection(remaining);
@@ -38,19 +39,36 @@ const Home = () => {
       </div>
     );
   }
+  const search = (e) => {
+    const text = e.target.value;
+    const searchResult = collection
+      ?.filter((e) => e.bookName.includes(text))
+      .slice(0, 9);
+    setSearchResult(searchResult);
+  };
+  const goToId = (id) => {
+    setShowSearchBox(0);
+    const section = document.getElementById(id);
+    if (section) {
+      section.scrollIntoView({
+        behavior: "smooth",
+      });
+    }
+  };
   const searchBox = (
     <div
       className={`${
         showSearchBox ? "block" : "hidden"
-      } absolute w-full px-4 py-4 z-20 bg-black/20 backdrop-blur-sm rounded-sm`}
+      } absolute w-full px-4 py-4 z-20 bg-black/20 backdrop-blur-sm h-screen rounded-sm`}
     >
-      <div className="h-screen bg-gray bg-opacity-90 rounded-lg shadow-2xl">
+      <div className=" bg-gray bg-opacity-90 rounded-lg shadow-2xl pb-10">
         <div className="px-4 gap-8 py-4 flex justify-between items-center">
           <div>
             <MdSearch className="text-xl"></MdSearch>
           </div>
           <div className="w-full">
             <input
+              onKeyUp={search}
               type="text"
               className="mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded focus:ring-1"
             />
@@ -59,14 +77,39 @@ const Home = () => {
             <MdBackspace className="text-xl"></MdBackspace>
           </div>
         </div>
+        <div>
+          {!searchResult ? (
+            <div className="mt-10 flex justify-center items-end">
+              <p className="text-sm font-medium">
+                Type something for search result
+              </p>
+            </div>
+          ) : !searchResult[0] ? (
+            <div className="mt-10 flex justify-center items-end">
+              <p className="text-sm font-medium">No result found.</p>
+            </div>
+          ) : null}
+          <div>
+            {searchResult?.map((e, i) => (
+              <div
+                onClick={() => goToId(e._id)}
+                key={e._id + i}
+                className="font-hindi flex mt-1 justify-start items-center gap-2 mx-5"
+              >
+                <p className="text-xl font-medium">{i + 1}.</p>
+                <p className="text-xl font-medium">{e.bookName}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );
   const searchBar = (
-    <div className="flex justify-center items-center my-4 mb-6">
+    <div className="flex justify-center items-center my-4 mb-11">
       <div
         onClick={() => setShowSearchBox(1)}
-        className="grid grid-cols-7 justify-between items-center text-black bg-white w-60 border-[2px] shadow-xl py-2 rounded-lg"
+        className="grid grid-cols-7 justify-between items-center text-black bg-white w-60 border-[2px] border-green shadow-xl py-2 rounded-lg"
       >
         <div className="flex justify-start ml-4">
           <MdSearch className="text-xl"></MdSearch>
@@ -96,9 +139,14 @@ const Home = () => {
               </p>
               <p className="text-sm font-medium">2. Animation on home page</p>
               <p className="text-sm font-medium">3. Error component added</p>
-              <p className="text-sm font-medium">4. Overlay-x hidden</p>
+              <p className="text-sm font-medium">
+                4. Overlay-x hidden for AOS package
+              </p>
+              <p className="text-sm font-medium">
+                5. Quick Search for book search
+              </p>
               <p className="text-xs font-slab mt-3 font-semibold text-right">
-                Data: 2:30 AM Monday, October 30, 2023
+                Data: 11:30 AM Tuesday, October 31, 2023
               </p>
             </div>
           </div>
