@@ -1,7 +1,7 @@
 import CollectionCard from "../components/Card/CollectionCard";
 import axiosClient from "../axios";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider";
 import { MdBackspace, MdSearch } from "react-icons/md";
 import AOS from "aos";
@@ -14,6 +14,20 @@ const Home = () => {
   const [showSearchBox, setShowSearchBox] = useState(0);
   const [searchResult, setSearchResult] = useState(null);
   const [removeClass, setRemoveClass] = useState(null);
+  const [id, setId] = useState(null);
+  useEffect(() => {
+    if (id) {
+      const get = document.getElementById(id);
+      get.classList.add("border-4", "border-green");
+      get.scrollIntoView({ behavior: "smooth", block: "center" });
+      setRemoveClass(id);
+      if (removeClass) {
+        document
+          .getElementById(removeClass)
+          .classList.remove("border-2", "border-green");
+      }
+    }
+  }, [id]);
   const updateUI = (removeID) => {
     // const remaining = collection?.filter((e) => e._id !== removeID);
     // setCollection(remaining);
@@ -49,20 +63,21 @@ const Home = () => {
   };
   const goToId = (id) => {
     setShowSearchBox(0);
-    const section = document.getElementById(id);
-    if (section) {
-      section.classList.add("border-[3px]", "border-green");
-      if (removeClass) {
-        document
-          .getElementById(removeClass)
-          .classList.remove("border-[3px]", "border-green");
-      }
-      section.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-      setRemoveClass(id);
-    }
+    setId(id);
+    // const section = document.getElementById(id);
+    // if (section) {
+    //   section.classList.add("border-[3px]", "border-green");
+    //   if (removeClass) {
+    //     document
+    //       .getElementById(removeClass)
+    //       .classList.remove("border-[3px]", "border-green");
+    //   }
+    //   section.scrollIntoView({
+    //     behavior: "smooth",
+    //     block: "center",
+    //   });
+    //   setRemoveClass(id);
+    // }
   };
   const searchBox = (
     <div
@@ -70,7 +85,7 @@ const Home = () => {
         showSearchBox ? "block" : "hidden"
       } absolute w-full px-4 py-4 z-20 bg-black/20 backdrop-blur-sm h-screen rounded-sm`}
     >
-      <div className=" bg-gray bg-opacity-90  rounded-lg shadow-2xl pb-10">
+      <div className=" bg-gray bg-opacity-90  rounded-lg shadow-2xl pb-20">
         <div className="px-4 gap-8 py-4 flex justify-between items-center">
           <div>
             <MdSearch className="text-xl"></MdSearch>
@@ -106,7 +121,9 @@ const Home = () => {
                 className="font-hindi flex mt-1 justify-start items-center gap-2 mx-5"
               >
                 <p className="text-xl font-medium">{i + 1}.</p>
-                <p className="text-xl font-medium">{e.bookName}</p>
+                <p className="text-xl font-medium active:text-green">
+                  {e.bookName}
+                </p>
               </div>
             ))}
           </div>
@@ -154,8 +171,15 @@ const Home = () => {
               <p className="text-sm font-medium">
                 5. Quick Search for book search
               </p>
+              <p className="text-sm font-medium">6. Search result highlight</p>
+              <p className="text-sm font-medium">
+                7. Scroll problem = use hooks useEffect
+              </p>
+              <p className="text-xs ml-4 font-medium">
+                {`{last suggesstion doesn't work.}`}
+              </p>
               <p className="text-xs font-slab mt-3 font-semibold text-right">
-                Data: 11:30 AM Tuesday, October 31, 2023
+                Data: 8:50 PM Tuesday, October 31, 2023
               </p>
             </div>
           </div>
