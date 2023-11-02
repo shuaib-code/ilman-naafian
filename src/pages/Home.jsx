@@ -18,13 +18,12 @@ const Home = () => {
   useEffect(() => {
     if (id) {
       const get = document.getElementById(id);
-      get.classList.add("border-4", "border-green");
+      get.classList.add("border-2", "border-green");
       get.scrollIntoView({ behavior: "smooth", block: "center" });
       setRemoveClass(id);
       if (removeClass) {
-        document
-          .getElementById(removeClass)
-          .classList.remove("border-2", "border-green");
+        document.getElementById(removeClass).classList.remove("border-green");
+        document.getElementById(removeClass).classList.remove("border-2");
       }
     }
   }, [id]);
@@ -152,7 +151,7 @@ const Home = () => {
       {user?.email === "tasinoutlook@gamil.com" ||
         (user?.email === "shuaib.cyclist@gmail.com" && (
           <div
-            data-aos="flip-up"
+            data-aos="fade-in"
             data-aos-duration="1400"
             className="my-3 p-3 font-mono rounded-2xl"
           >
@@ -160,26 +159,9 @@ const Home = () => {
               <h1 className="font-semibold text-center mb-3 font-slab">
                 About Latest Update
               </h1>
-              <p className="text-sm font-medium">
-                1. Loading effect before data showing
-              </p>
-              <p className="text-sm font-medium">2. Animation on home page</p>
-              <p className="text-sm font-medium">3. Error component added</p>
-              <p className="text-sm font-medium">
-                4. Overlay-x hidden for AOS package
-              </p>
-              <p className="text-sm font-medium">
-                5. Quick Search for book search
-              </p>
-              <p className="text-sm font-medium">6. Search result highlight</p>
-              <p className="text-sm font-medium">
-                7. Scroll problem = use hooks useEffect
-              </p>
-              <p className="text-xs ml-4 font-medium">
-                {`{last suggesstion doesn't work.}`}
-              </p>
+              <p className="text-sm font-medium">1. Animation Removed</p>
               <p className="text-xs font-slab mt-3 font-semibold text-right">
-                Data: 8:50 PM Tuesday, October 31, 2023
+                Data: 7:30 PM Thursday, November 2, 2023
               </p>
             </div>
           </div>
