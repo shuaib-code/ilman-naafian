@@ -8,7 +8,7 @@ const Footer = () => {
             Copyright © 2023 - All right reserved by
             <span className="text-violet-600 font-semibold font-mono underline ml-2 hover:text-green">
               <a
-                href="https://github.com/shuaib-cyclist"
+                href="https://github.com/shuaib-code"
                 target="_blank"
                 rel="noopener noreferrer"
               >

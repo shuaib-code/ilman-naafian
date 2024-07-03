@@ -1,9 +1,8 @@
 import CollectionCard from "../components/Card/CollectionCard";
 import axiosClient from "../axios";
 import { useQuery } from "@tanstack/react-query";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../Auth/AuthProvider";
-import { MdBackspace, MdSearch } from "react-icons/md";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
@@ -11,25 +10,8 @@ AOS.init();
 
 const Home = () => {
   const { user } = useContext(AuthContext);
-  const [showSearchBox, setShowSearchBox] = useState(0);
-  const [searchResult, setSearchResult] = useState(null);
-  const [removeClass, setRemoveClass] = useState(null);
-  const [id, setId] = useState(null);
-  useEffect(() => {
-    if (id) {
-      const get = document.getElementById(id);
-      get.classList.add("border-2", "border-green");
-      get.scrollIntoView({ behavior: "smooth", block: "center" });
-      setRemoveClass(id);
-      if (removeClass) {
-        document.getElementById(removeClass).classList.remove("border-green");
-        document.getElementById(removeClass).classList.remove("border-2");
-      }
-    }
-  }, [id]);
   const updateUI = (removeID) => {
-    // const remaining = collection?.filter((e) => e._id !== removeID);
-    // setCollection(remaining);
+    window.location.reload();
   };
   const {
     data: collection,
@@ -53,101 +35,8 @@ const Home = () => {
       </div>
     );
   }
-  const search = (e) => {
-    const text = e.target.value;
-    const searchResult = collection
-      ?.filter((e) => e.bookName.includes(text))
-      .slice(0, 9);
-    setSearchResult(searchResult);
-  };
-  const goToId = (id) => {
-    setShowSearchBox(0);
-    setId(id);
-    // const section = document.getElementById(id);
-    // if (section) {
-    //   section.classList.add("border-[3px]", "border-green");
-    //   if (removeClass) {
-    //     document
-    //       .getElementById(removeClass)
-    //       .classList.remove("border-[3px]", "border-green");
-    //   }
-    //   section.scrollIntoView({
-    //     behavior: "smooth",
-    //     block: "center",
-    //   });
-    //   setRemoveClass(id);
-    // }
-  };
-  const searchBox = (
-    <div
-      className={`${
-        showSearchBox ? "block" : "hidden"
-      } absolute w-full px-4 py-4 z-20 bg-black/20 backdrop-blur-sm h-screen rounded-sm`}
-    >
-      <div className=" bg-gray bg-opacity-90  rounded-lg shadow-2xl pb-20">
-        <div className="px-4 gap-8 py-4 flex justify-between items-center">
-          <div>
-            <MdSearch className="text-xl"></MdSearch>
-          </div>
-          <div className="w-full">
-            <input
-              onKeyUp={search}
-              type="text"
-              className="mt-1 px-3 py-1 bg-white border shadow-sm border-slate-300 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded focus:ring-1"
-            />
-          </div>
-          <div onClick={() => setShowSearchBox(0)} className="p-1">
-            <MdBackspace className="text-xl"></MdBackspace>
-          </div>
-        </div>
-        <div>
-          {!searchResult ? (
-            <div className="mt-10 flex justify-center items-end">
-              <p className="text-sm font-medium">
-                Type something for search result
-              </p>
-            </div>
-          ) : !searchResult[0] ? (
-            <div className="mt-10 flex justify-center items-end">
-              <p className="text-sm font-medium">No result found.</p>
-            </div>
-          ) : null}
-          <div>
-            {searchResult?.map((e, i) => (
-              <div
-                onClick={() => goToId(e._id)}
-                key={e._id + i}
-                className="font-hindi flex mt-1 justify-start items-center gap-2 mx-5"
-              >
-                <p className="text-xl font-medium">{i + 1}.</p>
-                <p className="text-xl font-medium active:text-green">
-                  {e.bookName}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-  const searchBar = (
-    <div className="flex justify-center items-center my-4 mb-11">
-      <div
-        onClick={() => setShowSearchBox(1)}
-        className="grid grid-cols-7 justify-between items-center text-black bg-white w-60 border-[2px] border-green shadow-xl py-2 rounded-lg"
-      >
-        <div className="flex justify-start ml-4">
-          <MdSearch className="text-xl"></MdSearch>
-        </div>
-        <div className="flex justify-center col-span-6">
-          <p>Quick Search</p>
-        </div>
-      </div>
-    </div>
-  );
   return (
     <>
-      {searchBox}
       {user?.email === "tasinoutlook@gamil.com" ||
         (user?.email === "shuaib.cyclist@gmail.com" && (
           <div
@@ -166,7 +55,6 @@ const Home = () => {
             </div>
           </div>
         ))}
-      {searchBar}
       <div
         id="collectionList"
         className="mt-3 mx-3 space-y-2 bg-no-repeat bg-cover bg-fixed bg-[url('https://www.baagroups.com/images/bg-decor-3.png')]"
